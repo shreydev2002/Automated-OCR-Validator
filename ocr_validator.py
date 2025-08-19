@@ -16,9 +16,9 @@ import os
 # ---------------- Load Secrets from .env ----------------
 # Loads variables from a .env file into the environment
 load_dotenv()
-AZURE_CONN_STR = os.getenv("AZURE_CONN_STR")
-MONGO_CONN_STR = os.getenv("MONGO_CONN_STR")
-MONGO_DB = os.getenv("MONGO_DB_NAME")
+AZURE_CONN_STR = (os.getenv("AZURE_CONN_STR") or st.secrets["AZURE_CONN_STR"])
+MONGO_CONN_STR = (os.getenv("MONGO_CONN_STR") or st.secrets["MONGO_CONN_STR"])
+MONGO_DB = (os.getenv("MONGO_DB_NAME") or st.secrets["MONGO_DB_NAME"])
 ALLOWED_COLLECTIONS = ["processed_tenders", "E_TENDERS_L1", "E_TENDERS_L2",
                        "E_TENDERS_L3", "E_PROCURE_L1", "E_PROCURE_L2",
                        "E_PROCURE_L3", "IREPS_L3"]
