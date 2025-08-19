@@ -290,7 +290,8 @@ def process_tenders_concurrently(tender_ids: List[str]) -> List[Dict[str, Any]]:
     progress_bar = st.progress(0)
     start_time = time.time()
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+    MAX_WORKERS = min(8, (os.cpu_count() or 4) * 2)  
+    with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         future_to_tender = {executor.submit(validate_tender_blob_cached, tid): tid for tid in tender_ids}
         for i, future in enumerate(concurrent.futures.as_completed(future_to_tender)):
             try:
